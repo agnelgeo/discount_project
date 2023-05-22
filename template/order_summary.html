@@ -1,0 +1,83 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Summary</title>
+    <link href="https://getbootstrap.com/docs/3.4/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .order-summary {
+        margin-top: 70px;
+      }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Order Summary</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="order-summary">
+        <h1>Order Summary</h1>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Product Details</h2>
+            {% for product_name, product_summary in product_info.items %}
+             <ul >
+                {% for key,value in product_summary.items %}
+                <li style="display: inline-block;">
+                  {% if key in "quantity" %}
+                    Product Name: {{product_name}} - Quantity:{{value}}
+                  {% endif %}
+                  {% if key in "price" %}
+                   - Total Price: {{value}}                    
+                  {% endif %}
+                </li>
+                {% endfor %}
+             </ul>
+            {% endfor %}
+          </div>
+          
+          <div class="col-md-6">
+            <h2>Order Totals</h2>
+            <p>Subtotal: ${{ subtotal }}</p>
+            {% if applied_discount %}
+              <p>Applied Discount: {{ applied_discount }} - Amount: ${{ discount_amount }}</p>
+            {% endif %}
+            <p>Shipping Fee: ${{ shipping_total }}</p>
+            <p>Gift Wrap Fee: ${{ gift_wrap_total }}</p>
+            <p><strong>Total: ${{ total }}</strong></p>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://getbootstrap.com/docs/3.4/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

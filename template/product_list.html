@@ -1,1 +1,119 @@
-hai,this template is working!!!!!!
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <link href="https://getbootstrap.com/docs/3.4/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .product-tile {
+            height: 100%;
+            margin-bottom: 15px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 400px; /* Adjust the height as needed */
+            overflow: visible;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-list {
+            margin-bottom: 70px; /* Add margin bottom here */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Product List</a>
+            </div>
+        </div>
+    </div>
+    <div>
+      
+    </div>
+
+    <div class="container">
+        <div class="product-list" style="margin-bottom: 20px;">
+
+            <form method="post" action="{% url 'products:calculate_order' %}">
+                {% csrf_token %}
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-md-4">
+                        <div class="card shadow-sm product-tile">
+                            <div class="image-container">
+                                <img class="product-image" alt="Product Image" src="{{ product.image.url }}">
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label class="product-title">{{ product.name }}</label>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">Price: $ {{ product.price }}</small>
+                                    </div>
+                                </div>
+
+                                <div>
+                                  <label for="quantity_product_{{ product.id }}">Quantity:</label>
+                                  <input type="number" name="quantity_product_{{ product.id }}" id="quantity_product_{{ product.id }}" value="0" min="0" step="1" onfocus="if(this.value==='0') this.value='';" onblur="if(this.value==='') this.value='0';">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4 text-right">
+                                    <label for="gift_wrap">Gift Wrap:</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" name="gift_wrap" id="gift_wrap">
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://getbootstrap.com/docs/3.4/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
