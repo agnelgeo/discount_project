@@ -25,16 +25,16 @@ This repository consists of a Python file named "basic_logic.py" that contains t
    source venv/bin/activate
    ```
 
-3. Install the project dependencies:
+4. Getting inside the folder:
+
+   ```shell
+   cd discount_project
+   ```
+
+4. Install the project dependencies:
 
    ```shell
    pip install -r requirements.txt
-   ```
-
-4. Set up the database:
-
-   ```shell
-   python manage.py migrate
    ```
 
 5. Start the development server:
